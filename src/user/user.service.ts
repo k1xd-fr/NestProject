@@ -43,10 +43,10 @@ export class UserService {
       where: { id },
     })
     if (!user) throw new NotFoundException('Такого пользователя нету')
-    // if (updateUserDto.password) {
-    //   const hashedPassword = await argon2.hash(updateUserDto.password)
-    //   updateUserDto.password = hashedPassword
-    // }
+    if (updateUserDto.password) {
+      const hashedPassword = await argon2.hash(updateUserDto.password)
+      updateUserDto.password = hashedPassword
+    }
 
     return await this.userRepository.update(id, updateUserDto)
   }
